@@ -77,6 +77,29 @@ const movies = [
     trailer: "https://www.youtube.com/embed/NgsQ8mVkN8w",
   },
 ];
+
+// const mobiles = [
+//   {
+//     model: "OnePlus 9 5G",
+//     img: "https://m.media-amazon.com/images/I/61fy+u9uqPL._SX679_.jpg",
+//     company: "Oneplus",
+//   },
+//   {
+//     model: "Iphone 13 mini",
+//     img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-mini-blue-select-2021?wid=470&hei=556&fmt=jpeg&qlt=95&.v=1645572315986",
+//     company: "Apple",
+//   },
+//   {
+//     model: "Samsung s21 ultra",
+//     img: "https://m.media-amazon.com/images/I/81kfA-GtWwL._SY606_.jpg",
+//     company: "Samsung",
+//   },
+//   {
+//     model: "xiomi mi 11",
+//     img: "https://m.media-amazon.com/images/I/51K4vNxMAhS._AC_SX522_.jpg",
+//     company: "xiomi",
+//   },
+// ];
 app.use(cors());
 app.use(express.json());
 
@@ -109,6 +132,28 @@ const client = await createConnection();
 //        const result = await client.db("mydb").collection("movies").find({id:102});
 //         response.send(result);
 //      });
+// app.get("/mobiles", async function (request, response) {
+//   // reference array values
+//   response.send(mobiles);
+// });
+
+app.get("/mobiles", async function (request, response) {
+  // monogo atlas
+  const result1 = await client
+    .db("mydb")
+    .collection("mobiles")
+    .find({})
+    .toArray();
+  response.send(result1);
+});
+
+app.post("/mobiles", async function (request, response) {
+  //mobile data from mongoatlas
+  const data = request.body;
+
+  const result = await client.db("mydb").collection("mobiles").insertMany(data);
+  response.send(result);
+});
 
 app.post("/movie", async function (request, response) {
   // db.movies.insertMany(data)
