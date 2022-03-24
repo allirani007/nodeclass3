@@ -203,7 +203,7 @@ app.put("/movie/:id", async function (req, res) {
 
 app.listen(PORT, () => console.log(`server started ${PORT}`));
 
-async function newFunction(data) {
+async function CreateMovie(data) {
   return await client.db("mydb").collection("movies").insertMany(data);
 }
 
